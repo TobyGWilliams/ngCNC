@@ -1,0 +1,39 @@
+<mat-card>
+  <mat-card-title>Connection</mat-card-title>
+  <mat-card-content>
+    <mat-form-field>
+      <mat-label>
+        <mat-icon>input</mat-icon> Controller
+      </mat-label>
+      <mat-select id="selectController" [(value)]=controller [formControl]="formControl.get('controller')" required>
+        <mat-option *ngFor="let controller of socket.fromEvent('config:Controller') | async" [value]="controller">
+          {{controller}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="formControl.get('controller').hasError('required')">Please select an item</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>
+        <mat-icon>input</mat-icon> Serial Port
+      </mat-label>
+      <mat-select id="selectCom" [(value)]=com [formControl]="formControl.get('com')" required>
+        <mat-option *ngFor="let com of socket.fromEvent('config:COMPorts') | async" [value]="com">
+          {{com}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="formControl.get('com').hasError('required')">Please select an item</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>
+        <mat-icon>input</mat-icon> Baud Rate
+      </mat-label>
+      <mat-select id="selectBaud" [(value)]=baud [formControl]="formControl.get('baud')" required>
+        <mat-option *ngFor="let baud of socket.fromEvent('config:BaudRate') | async" [value]="baud">
+          {{baud}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="formControl.get('baud').hasError('required')">Please select an item</mat-error>
+    </mat-form-field>
+    <button mat-raised-button id="buttonConnect" color="primary" (click)="connectToController()">Connect</button>
+  </mat-card-content>
+</mat-card>
